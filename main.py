@@ -35,7 +35,7 @@ def cosine_similarity(vec_a, vec_b):
     return dot_product / (norm_a * norm_b)
 
 
-
+# 问题编码
 query = "Who is the CEO of openai?"
 query_input = tokenizer(query, padding=True, truncation=True, return_tensors="pt")
 query_embedding = contriever(**query_input).detach().numpy()
@@ -47,10 +47,11 @@ for i in range(5):
     poison_text = query + mis_text
     sentences.append(poison_text)
 
-
+# 语料库编码
 inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt")
 txt_embeddings = contriever(**inputs).detach().numpy()
 
+# 相似度对比
 similarity_scores = [cosine_similarity(query_embedding, doc_embedding) for doc_embedding in txt_embeddings]
 similarity_scores_array = np.array(similarity_scores).squeeze()
 # print(similarity_scores_array)
@@ -60,7 +61,7 @@ k = 5
 top_k_indices = np.argsort(similarity_scores_array)[-k:][::-1]
 # print(top_k_indices)
 
-# print("与查询最相关的前K个文本：")
+# print("查询最相关的前K个文本：")
 # for index in top_k_indices:
 #     print(f"文档: {sentences[index]}, 相似度得分: {similarity_scores_array[index]:.4f}")
 
@@ -71,9 +72,9 @@ for index in top_k_indices:
 print(retrieve_text)
 
 
-
-# 将前k个文本制作prompt输入LLM
+# 将检索到的前k个文本和查询问题制作prompt输入LLM
 input_prompt = wrap_prompt(query, retrieve_text, k)
 
+# 获取最终输出
 response = get_res(input_prompt)
 print(response)
