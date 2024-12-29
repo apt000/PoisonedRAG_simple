@@ -1,4 +1,4 @@
-# PosionedRAG极简版实现
+# PosionedRAG简单版实现
 论文链接：https://arxiv.org/abs/2402.07867  
 笔记链接：https://q1mf21tt1eq.feishu.cn/wiki/I4VlwEQf7i0ovyk5LoRcWg8PnMd?from=from_copylink
 ![image](https://github.com/user-attachments/assets/87dde0b5-0c76-43eb-a24a-df8cc3bfb3c6)
